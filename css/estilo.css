@@ -1,0 +1,109 @@
+/*
+Theme Name: 4B_THEME
+Theme URI: https://jeffersonriobueno.com
+Author: Jefferson Riobueno
+Author URI: https://jeffersonriobueno.com 
+Description:
+Version: 0.0.1
+License: X
+License URI: 
+Text Domain: 
+*/
+::-webkit-scrollbar {
+  width: 8px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: #171614;
+  border: 0px none;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(252, 109, 26);
+}
+  
+::-webkit-scrollbar-track {
+  background: #cecece;
+  border: 0px none rgb(255, 255, 255);
+  border-radius: 50px;
+}
+  
+  
+/*GENERAL-----------------------------------------*/
+*{
+  margin: 0;
+  padding: 0;
+  color: inherit;
+  text-decoration: none;
+  list-style-type: none;
+  box-sizing: border-box;
+}
+  
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-display: fallback;
+  color: #171614;
+}
+.head{
+  width: 90%;
+  margin: 20px auto;
+}
+.head .inicio{
+    display: block;
+    margin: auto 0;
+    background: #05569c;
+    padding: 5px;
+    width: 120px;
+    text-align: center;
+    color: #fff;
+    border-radius: 5px;
+    margin-top: 3px;
+}
+.cuerpo{
+  width: 90%;
+  margin: auto;
+  /* display: flex; */
+  /* flex-wrap: wrap; */
+  /* justify-content: space-between; */
+}
+.cuerpo > h4{
+    padding-left: 28px;
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+.cuerpo .folder,.cuerpo .file{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.cuerpo div > div{
+  width: 24%;
+  border: 1px solid #bdbdbd;
+  padding: 18px 21px;
+  text-align: center;
+  text-transform: uppercase;
+  margin: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 7px;
+  word-break: break-all;
+  text-align: left;
+  font-size: 13px;
+}
+.cuerpo div > div img{
+  height: 26px;
+  margin-right: 8px;
+}
+.cuerpo .dir{
+  /* background: #7ba3fb; */
+}
+.cuerpo .files{
+    width: 98%;
+    margin: 2px auto;
+    padding: 7px;
+    /* border: navajowhite; */
+}

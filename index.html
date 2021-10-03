@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/estilo.css">
+    <script src="js/jq.js"></script>
+    <script src="js/axios.js"></script>
+</head>
+<body>
+    <div class="head">
+        <h2>Listado de Archivos</h2>
+        <div class="ruta">Ruta: <span>/</span></div>
+        <a href="#" class="inicio" onclick="window.location.reload()">Inicio</a>
+    </div>
+    <div class="cuerpo">
+        <h4>Carpetas</h4>
+        <div class="folder"></div>
+        <h4>Archivos</h4>
+        <div class="file"></div>
+
+    </div>
+    <script>
+    var $URL='http://localhost:8082';
+
+    var $path="";
+    function File(value){
+        DATA="";
+        $.ajax({
+        url : $URL+"/FILE?id="+value,
+        type : 'POST',
+        dataType: "json",
+        success : function(DATA)
+        {   
+            if (DATA != 0) {
+                a=DATA;
+                for (let Z = 0; Z < DATA.length; Z++) {
+                    oncl=$path+DATA[Z];
+                    oncl="donDir('"+oncl+"')";
+
+
+                    if(DATA[Z]!="")
+                        $(".cuerpo .file").append("<div onclick="+oncl+"  class='files'><img src='img/archivo.svg'> "+DATA[Z]+"</div>")
+                
+                }
+            }
+        }
+        });
+
+    };
+    function Dir(value){
+        DATA="";
+        $.ajax({
+        url : $URL+"/DIR?id="+value,
+        type : 'GET',
+        dataType: "json",
+        success : function(DATA)
+        {   
+            if (DATA != 0) {
+                a=DATA;
+                for (let X = 0; X < DATA.length; X++) {
+                    oncl="ListDir('"+DATA[X]+"')";
+                    if(DATA[X]!="")
+                    $(".cuerpo .folder").append("<div class='dir' onclick="+oncl+" date-value='"+DATA[X]+"'><img src='img/carpeta.svg'>"+DATA[X]+"</div>");
+//                    click_on();
+                
+                }
+            }
+        }
+        });
+
+    };
+
+
+
+    Dir();
+    File();
+    function ListDir(value){
+        $(".cuerpo .folder").html("");
+        $(".cuerpo .file").html("");
+        console.log(value);
+        $path=$path+value+'/';
+        Dir($path);
+        File($path);    
+        $(".ruta span").html("/"+$path)            
+    }
+
+    function donDir(value){
+        axios({
+            url:$URL+"/DON?id="+value,
+            method: 'GET',
+            responseType: 'blob'
+        })
+        .then((response) => {
+                const url = window.URL
+                    .createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'NOMBRE');
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+        })
+    }
+
+
+    </script>
+</body>
+</html>
