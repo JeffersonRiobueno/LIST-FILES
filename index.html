@@ -22,6 +22,14 @@
         <div class="file"></div>
 
     </div>
+    <div class="fondo">
+        <div class="modal">
+            <p>Espere un momento</p>
+            <div class="load">
+                <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+            </div>
+        </div>
+    </div>
     <script>
     var $URL='http://localhost:8082';
 
@@ -62,10 +70,11 @@
                 a=DATA;
                 for (let X = 0; X < DATA.length; X++) {
                     oncl="ListDir('"+DATA[X]+"')";
-                    if(DATA[X]!="")
-                    $(".cuerpo .folder").append("<div class='dir' onclick="+oncl+" date-value='"+DATA[X]+"'><img src='img/carpeta.svg'>"+DATA[X]+"</div>");
-//                    click_on();
-                
+                    if(DATA[X]!=""){
+                        if(DATA[X]!=".git"){
+                            $(".cuerpo .folder").append("<div class='dir' onclick="+oncl+" date-value='"+DATA[X]+"'><img src='img/carpeta.svg'>"+DATA[X]+"</div>");
+                        }
+                    }
                 }
             }
         }
@@ -88,6 +97,7 @@
     }
 
     function donDir(value){
+        $(".fondo").fadeIn();
         axios({
             url:$URL+"/DON?id="+value,
             method: 'GET',
@@ -102,6 +112,8 @@
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
+                $(".fondo").fadeOut();
+
         })
     }
 
