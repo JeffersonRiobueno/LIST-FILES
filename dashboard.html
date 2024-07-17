@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/estilo.css">
+    <script src="js/jq.js"></script>
+    <script src="js/axios.js"></script>
+</head>
+<body>
+    <div class="head">
+        <h2>Errores <span class="e_title"></span></h2>
+    </div>
+    <div class="cuerpo cuerpo_error">
+        <div class="data_error">
+            <h4>WSAHI</h4>
+            <div id="ErrorWS"><div> Total de Errores: </div><span></span></div>
+            <div id="E60002"><div> Error 60002 (SepararStock): </div><span></span></div>
+            <div id="E60003"><div> Error 60003 (ProcesarPedido): </div><span></span></div>
+            <div id="E60004"><div> Error 60004 (ProcesarPedido): </div><span></span></div>
+            <div id="E60005"><div> Error 60005 (ConsultaStock): </div><span></span></div>
+            <div id="ETIMEOUT"><div> Timeout Expired: </div><span></span></div>
+            <div id="EDIRECCION"><div> Error en Dirección Cliente: </div><span></span></div>
+            <div id="ETARJETA"><div> Erorr en Mensaje de Tarjeta: </div><span></span></div>
+            <div id="E8114"><div> Error 8114 (ProcesarPedido): </div><span></span></div>
+            <div id="E4121"><div> Error 4121 (ConsultaStock): </div><span></span></div>
+        </div>
+
+    </div>
+    
+    <script>
+    var $URL='http://172.1.0.1:18000';
+
+    function getParameterByName(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+    P=getParameterByName('p')
+    F=getParameterByName('file')
+    $(".e_title").text(F);
+    
+    
+    
+    function File(P,F){
+        DATA="";
+        $.ajax({
+        url : $URL+"/DATA?proyecto="+P+"&Logfile="+F,
+        type : 'POST',
+        dataType: "json",
+        success : function(DATA)
+        {   
+            if (DATA != 0) {
+                $("#ErrorWS span").text(DATA.ErrorWS);
+                $("#E60002 span").text(DATA.E60002);
+                $("#E60003 span").text(DATA.E60003);
+                $("#E60004 span").text(DATA.E60004);
+                $("#E60005 span").text(DATA.E60005);
+                $("#ETIMEOUT span").text(DATA.ETIMEOUT);
+                $("#EDIRECCION span").text(DATA.EDIRECCION);
+                $("#ETARJETA span").text(DATA.ETARJETA);
+                $("#E8114 span").text(DATA.E8114);
+                $("#E4121 span").text(DATA.E4121);
+            }
+            a=DATA
+        }
+        
+        });
+
+    };
+
+    
+
+    File(P,F);
+
+    
+   
+   
+    
+    
+    
+    
+  </script>
+</body>
+</html>

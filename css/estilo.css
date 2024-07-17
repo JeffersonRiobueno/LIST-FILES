@@ -42,6 +42,7 @@ body {
   font-display: fallback;
   color: #171614;
 }
+
 .head{
   width: 90%;
   margin: 20px auto;
@@ -57,6 +58,26 @@ body {
     border-radius: 5px;
     margin-top: 3px;
 }
+.head .upload{
+    width: 150px;
+    height: 40px;
+    background: #ff9120;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    border-radius: 5px;
+    /* margin-left: auto; */
+    /* margin-right: 0; */
+    /* margin-top: -52px; */
+    position: absolute;
+    top: 25px;
+    right: 100px;
+    z-index: 10;
+    cursor: pointer;
+}
+.head .upload p{}
+
 .cuerpo{
   width: 90%;
   margin: auto;
@@ -96,6 +117,17 @@ body {
   height: 26px;
   margin-right: 8px;
 }
+.cuerpo div > div img.descarga{
+    height: 31px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+.cuerpo div > div img.grafica{
+    height: 48px;
+    margin: -9px;
+    margin-left: 0px;
+    cursor: pointer;
+}
 .cuerpo .dir{
   /* background: #7ba3fb; */
 }
@@ -104,7 +136,48 @@ body {
     margin: 2px auto;
     padding: 7px;
     /* border: navajowhite; */
+    cursor: unset;
 }
+.cuerpo a.files {
+    width: 150px;
+    min-height: 160px;
+    text-align: center;
+    word-break: break-word;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+.cuerpo a.files > img{
+    width: 80px;
+    display: block;
+    margin: auto;
+    margin-bottom: 10px;
+}
+.cuerpo_error{
+    display: flex;
+    justify-content: space-around;
+}
+.cuerpo .data_error{}
+.cuerpo .data_error > div{
+    width: 400px;
+    display: flex;
+    padding: 7px;
+    margin: 0;
+    border-radius: 0;
+}
+.cuerpo .data_error > div div{
+    width: 300px;
+    padding: 0;
+    margin: 0;
+    /* border-radius: unset; */
+    border: none;
+}
+.cuerpo .data_error > div span{}
+.cService{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
 .fondo{
     width: 100%;
     height: 100%;
@@ -180,4 +253,70 @@ body {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.cuerpo .Services, .cuerpo .iis{
+    width: 49%;
+}
+.cuerpo .Services h4, .cuerpo .iis h4{
+    padding: 6px;
+}
+.cuerpo .Services .result, .cuerpo .iis .result{
+    width: 100%;
+    display: block;
+    padding: 0;
+    border: none;
+    margin: 0;
+}
+.cuerpo .Services .fila, .cuerpo .iis .fila{
+    width: 100%;
+    cursor: unset;
+    padding: 5px;
+    margin: auto;
+    border-radius: 0;
+}
+.cuerpo .Services .fila .box,.cuerpo .iis .fila .box{
+    border: none;
+    cursor: unset;
+    padding: 10px  5px;
+}
+.cuerpo .Services .fila .box.name,.cuerpo .iis .fila .box.name{
+    width: 45%;
+}
+.cuerpo .Services .fila .box.status,.cuerpo .iis .fila .box.status{
+    /* margin-right: 60px; */
+    width: 120px;
+}
+.cuerpo .Services .fila .box.status p,.cuerpo .iis .fila .box.status p{
+    background: antiquewhite;
+    display: block;
+    width: 100%;
+    padding: 3px;
+    text-align: center;
+}
+.cuerpo .Services .fila .box.status p.Stopped,.cuerpo .iis .fila .box.status p.Stopped{
+    background: #bf3333;
+    color: #fff;
+}
+.cuerpo .Services .fila .box.status p.Running,.cuerpo .iis .fila .box.status p.Started{
+    background: #21f15a;
+    color: #545454;
+}
+.cuerpo .Services .fila .btn, .cuerpo .iis .fila .btn{
+    background: aliceblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 38px;
+    width: 100px;
+    cursor: pointer;
+    margin: auto;
+}
+.cuerpo .Services .fila .btn.stop,.cuerpo .iis .fila .btn.stop{
+    background: #bbbbbb;
+    color: #585555;
+}
+.cuerpo .Services .fila .btn.start,.cuerpo .iis .fila .btn.start{
+    background: #005fb3;
+    color: #fff;
 }

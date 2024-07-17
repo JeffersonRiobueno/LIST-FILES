@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/estilo.css">
+    <script src="js/jq.js"></script>
+    <script src="js/axios.js"></script>
+</head>
+<body>
+    <div class="head">
+        <h2>App Status</h2>
+    </div>
+    <div class="cuerpo cService">
+        <div class="iis">
+            <h4>IIS List</h4>
+            <div class="result"></div>
+        </div>
+
+        <div class="Services">
+            <h4>Service List</h4>
+            <div class="result"></div>
+        </div>
+
+    <div class="fondo">
+        <div class="modal">
+            <p>Espere un momento</p>
+            <div class="load">
+                <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+            </div>
+        </div>
+    </div>
+    <script>
+    var $URL='http://172.1.0.1:18002'; // URL DEL API
+    var $URL_IIS='http://172.1.0.1:18003'; // URL DEL IIS
+
+    var $path="";
+    function Service(value){
+        DATA="";
+        $.ajax({
+        url : $URL,
+        type : 'GET',
+        dataType: "json",
+        success : function(DATA)
+        {   
+            a=DATA;
+            if (DATA != 0) {
+                for (let X = 0; X < DATA.length; X++) {
+
+                    if(DATA[X]['name']!=""){
+                        oncl="StopService('"+DATA[X]['name']+"')";
+                        oncl2="StartService('"+DATA[X]['name']+"')";
+                        status=DATA[X]['status'];
+                        btn='';
+                        if(status=="Stopped"){
+                            btn='<div class="btn start" onclick='+oncl2+'>Start</div>'
+
+                        }else{
+                        btn='<div class="btn stop" onclick='+oncl+'>Stop</div>'
+                            
+                        }
+                        $(".cuerpo .Services .result").append('<div class="fila"><div class="box name">'+DATA[X]['name']+'</div><div class="box status"><p class="'+status+'">'+status+'</p></div>'+btn+'</div></div>');
+//                        $(".cuerpo .Services").append("<div class='dir' onclick="+oncl+" date-value='"+DATA[X]+"'><img src='img/carpeta.svg'>"+DATA[X]+"</div>");
+                    }
+                }
+            }
+        }
+        });
+
+    };
+
+    function IIS(){
+        DATA="";
+        $.ajax({
+        url : $URL_IIS+'/sites',
+        type : 'GET',
+        dataType: "json",
+        success : function(DATA)
+        {   
+            b=DATA;
+            if (DATA != 0) {
+                for (let X = 0; X < DATA.length; X++) {
+
+                    if(DATA[X]['name']!=""){
+                        oncl="StopService('"+DATA[X]['name']+"')";
+                        oncl2="StartService('"+DATA[X]['name']+"')";
+                        status=DATA[X]['state'];
+                        btn='';
+                        if(status=="Stopped"){
+                            btn='<div class="btn start" onclick='+oncl2+'>Start</div>'
+
+                        }else{
+                        btn='<div class="btn stop" onclick='+oncl+'>Stop</div>'
+                            
+                        }
+                        $(".cuerpo .iis .result").append('<div class="fila"><div class="box name">'+DATA[X]['name']+'</div><div class="box status"><p class="'+status+'">'+status+'</p></div>'+btn+'</div></div>');
+//                        $(".cuerpo .Services").append("<div class='dir' onclick="+oncl+" date-value='"+DATA[X]+"'><img src='img/carpeta.svg'>"+DATA[X]+"</div>");
+                    }
+                }
+            }
+        }
+        });
+
+    };
+
+    function URL_IIS(){
+        DATA="";
+        $.ajax({
+        url : $URL_IIS+'/getUrl',
+        type : 'GET',
+        dataType: "json",
+        success : function(DATA)
+        {   
+            b=DATA;
+            console.log(b);
+        }
+        });
+
+    };
+
+
+
+    Service();
+    IIS();
+    function StopService(value){
+        $(".fondo").fadeIn();
+        $(".cuerpo .Services").html("");
+        $.ajax({
+        url : $URL+"/stop?service="+value,
+        type : 'GET',
+        dataType: "json",
+        success : function(DATA)
+            {   
+                if(DATA['Error']==0){
+                    Service();
+                    $(".fondo").fadeOut();
+                }else{
+                    Service();
+                    $(".fondo").fadeOut();
+                }
+            }
+        });
+        
+        
+        
+    }
+
+    function StartService(value){
+        $(".fondo").fadeIn();
+        $(".cuerpo .Services").html("");
+        $.ajax({
+        url : $URL+"/start?service="+value,
+        type : 'GET',
+        dataType: "json",
+        success : function(DATA)
+            {   
+                if(DATA['Error']==0){
+                    Service();
+                    $(".fondo").fadeOut();
+                }else{
+                    Service();
+                    $(".fondo").fadeOut();
+                }
+            }
+        });
+        
+    }
+    
+
+    </script>
+</body>
+</html>
